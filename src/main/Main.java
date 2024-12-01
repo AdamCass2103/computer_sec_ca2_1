@@ -49,9 +49,8 @@ public class Main {
             System.out.print("Enter the filename to encrypt: ");
             String inputFile = scanner.nextLine().trim();
 
-            File file = new File(inputFile);
-            if (!file.exists()) {
-                System.out.println("File not found. Please check the path and try again.");
+            // Validate file
+            if (!validateFile(inputFile)) {
                 return;
             }
 
@@ -84,14 +83,18 @@ public class Main {
             System.out.print("Enter the filename to decrypt: ");
             String inputFile = scanner.nextLine().trim();
 
-            File file = new File(inputFile);
-            if (!file.exists()) {
-                System.out.println("File not found. Please check the path and try again.");
+            // Validate file
+            if (!validateFile(inputFile)) {
                 return;
             }
 
             System.out.print("Enter the encryption key: ");
             String keyString = scanner.nextLine().trim();
+
+            // Validate key
+            if (!validateKey(keyString)) {
+                return;
+            }
 
             // Decode the base64 key
             byte[] keyBytes = Base64.getDecoder().decode(keyString);
@@ -110,6 +113,29 @@ public class Main {
             System.out.println("Error during decryption: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private static boolean validateFile(String filename) {
+        File file = new File(filename);
+        if (!file.exists() || !file.isFile()) {
+            System.out.println("Invalid file. Please enter a valid file path.");
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean validateKey(String keyString) {
+        try {
+            byte[] keyBytes = Base64.getDecoder().decode(keyString);
+            if (keyBytes.length != 16) { // AES-128 requires a 16-byte key
+                System.out.println("Invalid key length. Key must be 16 bytes (128 bits).");
+                return false;
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid key format. Please provide a Base64-encoded key.");
+            return false;
+        }
+        return true;
     }
 
     private static byte[] encryptData(byte[] data, SecretKey key) throws Exception {
