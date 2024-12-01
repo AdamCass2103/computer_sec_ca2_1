@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Traget/Traget.iml" filepath="$PROJECT_DIR$/Traget/Traget.iml" />
       <module fileurl="file://$PROJECT_DIR$/computer_sec_ca2 1.iml" filepath="$PROJECT_DIR$/computer_sec_ca2 1.iml" />
     </modules>
   </component>
