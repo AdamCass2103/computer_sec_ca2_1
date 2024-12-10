@@ -11,6 +11,9 @@ import java.util.Scanner;
 
 public class Main {
 
+    //Encryption And Decryption methods bits Reference from : https://www.baeldung.com/java-aes-encryption-decryption
+
+
     private static final String ALGORITHM = "AES";
 
     public static void main(String[] args) {
@@ -27,7 +30,7 @@ public class Main {
             try {
                 choice = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Invalid option. Please try again.");
+                System.out.println("Invalid option Please try again");
                 continue;
             }
 
@@ -36,7 +39,7 @@ public class Main {
             } else if (choice == 2) {
                 decryptFile(scanner);
             } else if (choice == 3) {
-                System.out.println("Exiting the application. Goodbye!");
+                System.out.println("Exiting the application Goodbye");
                 break;
             } else {
                 System.out.println("Invalid option. Please try again.");
@@ -67,13 +70,13 @@ public class Main {
             // Save the encrypted data to a file
             writeFile("ciphertext.txt", encryptedData);
 
-            System.out.println("File encrypted successfully!");
+            System.out.println("File encrypted successfully");
             System.out.println("Encryption key: " + encodedKey);
             System.out.println("Encrypted file saved as: ciphertext.txt");
-            System.out.println("Please save the encryption key to decrypt the file later.");
+            System.out.println("Please save the encryption key to decrypt the file later");
 
         } catch (Exception e) {
-            System.out.println("Error during encryption: " + e.getMessage());
+            System.out.println("Error during encryption " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -110,7 +113,7 @@ public class Main {
             System.out.println("Decrypted file saved as: plaintext.txt");
 
         } catch (Exception e) {
-            System.out.println("Error during decryption: " + e.getMessage());
+            System.out.println("Error during decryption " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -118,7 +121,7 @@ public class Main {
     private static boolean validateFile(String filename) {
         File file = new File(filename);
         if (!file.exists() || !file.isFile()) {
-            System.out.println("Invalid file. Please enter a valid file path.");
+            System.out.println("Invalid file Please enter a valid file path ");
             return false;
         }
         return true;
@@ -128,11 +131,11 @@ public class Main {
         try {
             byte[] keyBytes = Base64.getDecoder().decode(keyString);
             if (keyBytes.length != 16) { // AES-128 requires a 16-byte key
-                System.out.println("Invalid key length. Key must be 16 bytes (128 bits).");
+                System.out.println("Invalid key length Key must be 16 bytes 128 bits");
                 return false;
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("Invalid key format. Please provide a Base64-encoded key.");
+            System.out.println("Invalid key format Please provide a Base64-encoded key");
             return false;
         }
         return true;
